@@ -54,7 +54,7 @@ public abstract class Task {
                 handleErrorResponse(command, commandRepository, commandSendService);
                 break;
             default:
-                throw new UnknownCommandStatusException("unknown command response status: " + commandResponse.getStatus());
+                throw new IllegalArgumentException("unknown command response status: " + commandResponse.getStatus());
         }
     }
 
