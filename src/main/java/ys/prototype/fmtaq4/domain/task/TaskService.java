@@ -8,15 +8,8 @@ import java.util.UUID;
 @Service
 public class TaskService {
 
-    private final CommandRepository commandRepository;
-    private final CommandSendService commandSendService;
-
-    public TaskService(CommandRepository commandRepository, CommandSendService commandSendService) {
-        this.commandRepository = commandRepository;
-        this.commandSendService = commandSendService;
-    }
-
-    public void handleResponse(CommandResponse commandResponse) {
+    public void handleResponse(final CommandResponse commandResponse, final CommandRepository commandRepository,
+                               final CommandSendService commandSendService) {
         UUID commandId = commandResponse.getCommandId();
         Command command = commandRepository.findOne(commandId);
 

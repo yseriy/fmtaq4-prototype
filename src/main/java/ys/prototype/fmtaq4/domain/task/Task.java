@@ -40,7 +40,7 @@ public abstract class Task {
 
     public abstract void addCommand(String address, String body);
 
-    public abstract void start(final CommandSendService transport);
+    public abstract void start(CommandSendService transport);
 
     public void handleResponse(final CommandResponse commandResponse, final Command command,
                                final CommandRepository commandRepository, final CommandSendService commandSendService) {
@@ -66,7 +66,7 @@ public abstract class Task {
         return commands;
     }
 
-    void addCommand(Command command) {
+    void addCommand(final Command command) {
         commands.add(command);
     }
 
@@ -80,13 +80,9 @@ public abstract class Task {
         taskStatus = TaskStatus.ERROR;
     }
 
-    Command findCommandById(UUID commandId) {
+    Command findCommandById(final UUID commandId) {
         return commands.stream().filter(c -> c.getId().equals(commandId)).findFirst()
-                .orElseThrow(() -> cannotFindCommand(commandId));
-    }
-
-    private RuntimeException cannotFindCommand(UUID commandId) {
-        return new NoSuchElementException("cannot find command by id: " + commandId);
+                .orElseThrow(() -> new NoSuchElementException("cannot find command by id: " + commandId));
     }
 
     @Override
@@ -105,7 +101,6 @@ public abstract class Task {
         }
 
         Task task = (Task) o;
-
         return id.equals(task.id);
     }
 

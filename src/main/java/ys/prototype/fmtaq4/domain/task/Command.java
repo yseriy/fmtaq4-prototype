@@ -78,7 +78,6 @@ public abstract class Command {
         }
 
         Command command = (Command) o;
-
         return id.equals(command.id);
     }
 
